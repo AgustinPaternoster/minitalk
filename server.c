@@ -20,7 +20,7 @@ void	handler(int sig)
 	if (sig == SIGUSR1)
 		c |= (1 << bit);
 	bit++;
-	if (bit == 8)
+	if (bit == 7)
 	{
 		write(1,&c,1);
 		bit = 0;

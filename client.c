@@ -20,7 +20,7 @@ void	send_to_server(char *msg, int pdi)
 	while (msg[i])
 	{
 		j = 0;
-		while (j < 8)
+		while (j < 7)
 		{
 			if ((msg[i] >> j) & 1)
 				kill(pdi, SIGUSR1);
