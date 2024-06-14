@@ -12,6 +12,7 @@ all: $(NAMES) $(NAMEC)
 
 $(NAMES) : $(SFILE) $(INC) makefile
 	@make -C libft
+	@make -C ft_printf
 	$(CC) $(FLAGS) $(SFILE) $(PRINTF) $(LIBFT) -o $(NAMES)
 $(NAMEC) : $(CFILE) $(INC) makefile
 	$(CC) $(FLAGS) $(CFILE) $(PRINTF) $(LIBFT) -o $(NAMEC)
