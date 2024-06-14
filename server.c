@@ -22,7 +22,7 @@ void	handler(int sig)
 	bit++;
 	if (bit == 8)
 	{
-		ft_printf("%c", c);
+		write(1,&c,1);
 		bit = 0;
 		c = 0;
 	}
