@@ -6,14 +6,15 @@ CFILE = client.c
 SFILE = server.c
 PRINTF = ft_printf/libftprintf.a
 LIBFT = libft/libft.a
+INC = minitalk.h
 
 all: $(NAMES) $(NAMEC)
 
-$(NAMES) : $(SFILE)
+$(NAMES) : $(SFILE) $(INC)
 	@make -C ft_printf
 	@make -C libft
 	$(CC) $(FLAGS) $(SFILE) $(PRINTF) $(LIBFT) -o $(NAMES)
-$(NAMEC) : $(CFILE)
+$(NAMEC) : $(CFILE) $(INC)
 	$(CC) $(FLAGS) $(CFILE) $(PRINTF) $(LIBFT) -o $(NAMEC)
 
 clean:
