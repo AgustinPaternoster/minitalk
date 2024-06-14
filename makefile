@@ -10,11 +10,11 @@ INC = minitalk.h
 
 all: $(NAMES) $(NAMEC)
 
-$(NAMES) : $(SFILE) $(INC)
+$(NAMES) : $(SFILE) $(INC) makefile
 	@make -C ft_printf
 	@make -C libft
 	$(CC) $(FLAGS) $(SFILE) $(PRINTF) $(LIBFT) -o $(NAMES)
-$(NAMEC) : $(CFILE) $(INC)
+$(NAMEC) : $(CFILE) $(INC) makefile
 	$(CC) $(FLAGS) $(CFILE) $(PRINTF) $(LIBFT) -o $(NAMEC)
 
 clean:

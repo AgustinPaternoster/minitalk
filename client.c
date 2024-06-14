@@ -26,7 +26,7 @@ void	send_to_server(char *msg, int pdi)
 				kill(pdi, SIGUSR1);
 			else
 				kill(pdi, SIGUSR2);
-			usleep(200);
+			usleep(400);
 			j++;
 		}
 		i++;
