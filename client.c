@@ -11,32 +11,35 @@
 /* ************************************************************************** */
 #include "minitalk.h"
 
-void	send_to_server(char *msg, int pdi)
+void	send_to_server(char c, int pdi)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (msg[i])
+	while (i < 7)
 	{
-		j = 0;
-		while (j < 7)
-		{
-			if ((msg[i] >> j) & 1)
-				kill(pdi, SIGUSR1);
-			else
-				kill(pdi, SIGUSR2);
-			usleep(400);
-			j++;
-		}
+		if ((c >> i) & 1)
+			kill(pdi, SIGUSR1);
+		else
+			kill(pdi, SIGUSR2);
+		usleep(400);
 		i++;
 	}
 }
 
 int	main(int arc, char **argv)
 {
+	int i;
+
 	if (arc == 3)
-		send_to_server(argv[1], ft_atoi(argv[2]));
+	{		
+		i =0;
+		while(argv[1][i] != '\0')
+		{
+			send_to_server(argv[1][i], ft_atoi(argv[2]));
+			i++;
+		}
+	}
 	else
 		ft_printf("Error");
 	return (0);

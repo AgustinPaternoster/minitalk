@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-void	handler(int sig)
+void	print_bits(int sig)
 {
 	static int	c;
 	static int	bit;
@@ -30,11 +30,14 @@ void	handler(int sig)
 
 int	main(void)
 {
+	struct sigaction sa; 
+	sa.sa_handler = &print_bits;
+	
 	ft_printf("My Server PID is: %d\n", getpid());
 	while (1)
 	{
-		signal(SIGUSR1, handler);
-		signal(SIGUSR2, handler);
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
 		pause();
 	}
 	return (0);
