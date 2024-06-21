@@ -12,6 +12,11 @@
 #include "minitalk.h"
 
 
+void recive_signal(int signal)
+{
+	if (signal = SIGUSR1)
+		ft_printf("char recebido\n");
+}
 
 void	send_to_server(int pid, char c)
 {
@@ -27,6 +32,7 @@ void	send_to_server(int pid, char c)
 		usleep(1200);
 		bit++;
 	}
+	pause();
 }
 
 int	main(int argc, char **argv)
@@ -35,6 +41,7 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 0;
+	signal(SIGUSR1,recive_signal);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
