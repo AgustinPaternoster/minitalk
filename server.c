@@ -26,7 +26,7 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 		bit = 0;
 		i = 0;
 	}
-	//usleep(50);
+	usleep(50);
 	kill(info->si_pid,SIGUSR1);
 }
 
