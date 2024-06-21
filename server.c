@@ -25,10 +25,9 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 		ft_printf("%c", i);
 		bit = 0;
 		i = 0;
-		sleep(1);
-		kill(info->si_pid,SIGUSR1);
 	}
-	
+	//usleep(50);
+	kill(info->si_pid,SIGUSR1);
 }
 
 int	main(int argc, char **argv)

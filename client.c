@@ -15,7 +15,7 @@
 void recive_signal(int signal)
 {
 	if (signal = SIGUSR1)
-		ft_printf("char recebido\n");
+		ft_printf("bit recibido recebido\n");
 }
 
 void	send_to_server(int pid, char c)
@@ -29,10 +29,10 @@ void	send_to_server(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(1200);
+		//usleep(1200);
 		bit++;
+		pause();
 	}
-	pause();
 }
 
 int	main(int argc, char **argv)
