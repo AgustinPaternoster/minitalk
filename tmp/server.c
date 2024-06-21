@@ -11,41 +11,35 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
 void	print_bits(int sig)
 {
+	static int	c;
 	static int	bit;
-	static int	i;
 
 	if (sig == SIGUSR1)
-		i |= (0x01 << bit);
+		c |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		ft_printf("%c", i);
+		write(1,&c,1);
 		bit = 0;
-		i = 0;
+		c = 0;
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	struct sigaction sa; 
-	
-	(void)argv;
 	sa.sa_handler = &print_bits;
-	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
-	if (argc != 1)
-	{
-		ft_printf("Error\n");
-		return (1);
-	}
-	ft_printf("%d\n", getpid());
-	while (argc == 1)
+
+	
+	ft_printf("My Server PID is: %d\n", getpid());
+	while (1)
 	{
 		sigaction(SIGUSR1, &sa, NULL);
 		sigaction(SIGUSR2, &sa, NULL);
-		pause ();
+		pause();
 	}
 	return (0);
 }
