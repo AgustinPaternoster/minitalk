@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/14 13:13:54 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minitalk.h"
+#include "./inc/minitalk.h"
 
 void	print_bits(int sig, siginfo_t *info, void *context)
 {

@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/14 13:13:36 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minitalk.h"
+#include "./inc/minitalk.h"
 
 void	recive_signal(int signal)
 {
