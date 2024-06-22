@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 #include "minitalk.h"
 
-
-void recive_signal(int signal)
+void	recive_signal(int signal)
 {
 	if (signal == SIGUSR1)
 		ft_printf("bit recibido\n");
@@ -27,11 +26,10 @@ void	send_to_server(int pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
-		if ((c & (0x01 << bit)))
+		if (c & (0x01 << bit))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		//usleep(1200);
 		bit++;
 		pause();
 	}
@@ -43,8 +41,8 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	signal(SIGUSR1,recive_signal);
-	signal(SIGUSR2,recive_signal);
+	signal(SIGUSR1, recive_signal);
+	signal(SIGUSR2, recive_signal);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);

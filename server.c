@@ -9,25 +9,12 @@
 /*   Updated: 2024/06/14 13:13:54 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minitalk.h"
-
-void send_signal(int pid, unsigned char chr, int bit)
-{
-	usleep(200);
-	if(chr == '\0')
-	{
-		ft_printf("\n");
-		kill(pid,SIGUSR2);	
-	}
-	else
-		kill(pid,SIGUSR1);
-}
 
 void	print_bits(int sig, siginfo_t *info, void *context)
 {
-	static int	bit;
-	static unsigned char chr;
+	static int				bit;
+	static unsigned char	chr;
 
 	(void)context;
 	if (sig == SIGUSR1)
@@ -35,10 +22,10 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	bit++;
 	if (bit == 8)
 	{
-		if(chr == '\0')
+		if (chr == '\0')
 		{
 			ft_printf("\n");
-			kill(info->si_pid,SIGUSR2);
+			kill(info->si_pid, SIGUSR2);
 			usleep(100);
 		}
 		else
@@ -47,13 +34,13 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 		chr = 0;
 	}
 	usleep(200);
-	kill(info->si_pid,SIGUSR1);
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(int argc, char **argv)
 {
-	struct sigaction sa; 
-	
+	struct sigaction	sa;
+
 	(void)argv;
 	sa.sa_sigaction = &print_bits;
 	sa.sa_flags = SA_SIGINFO;
