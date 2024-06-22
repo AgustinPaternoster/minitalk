@@ -14,8 +14,10 @@
 
 void recive_signal(int signal)
 {
-	if (signal = SIGUSR1)
-		ft_printf("bit recibido recebido\n");
+	if (signal == SIGUSR1)
+		ft_printf("bit recibido\n");
+	if (signal == SIGUSR2)
+		ft_printf("mensaje recibido\n");
 }
 
 void	send_to_server(int pid, char c)
@@ -42,6 +44,7 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	signal(SIGUSR1,recive_signal);
+	signal(SIGUSR2,recive_signal);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
@@ -50,6 +53,7 @@ int	main(int argc, char **argv)
 			send_to_server(pid, argv[2][i]);
 			i++;
 		}
+		send_to_server(pid, argv[2][i]);
 	}
 	else
 	{

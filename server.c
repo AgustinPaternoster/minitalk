@@ -11,22 +11,42 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void send_signal(int pid, unsigned char chr, int bit)
+{
+	usleep(200);
+	if(chr == '\0')
+	{
+		ft_printf("\n");
+		kill(pid,SIGUSR2);	
+	}
+	else
+		kill(pid,SIGUSR1);
+}
+
 void	print_bits(int sig, siginfo_t *info, void *context)
 {
 	static int	bit;
-	static int	i;
+	static unsigned char chr;
 
 	(void)context;
 	if (sig == SIGUSR1)
-		i |= (0x01 << bit);
+		chr |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		ft_printf("%c", i);
+		if(chr == '\0')
+		{
+			ft_printf("\n");
+			kill(info->si_pid,SIGUSR2);
+			usleep(100);
+		}
+		else
+			ft_printf("%c", chr);
 		bit = 0;
-		i = 0;
+		chr = 0;
 	}
-	usleep(50);
+	usleep(200);
 	kill(info->si_pid,SIGUSR1);
 }
 
@@ -43,7 +63,7 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
-	ft_printf("%d\n", getpid());
+	ft_printf("pid: %d\n", getpid());
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (argc == 1)
