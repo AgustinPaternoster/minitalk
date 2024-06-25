@@ -30,8 +30,9 @@ void	send_to_server(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		bit++;
 		pause();
+		bit++;
+		
 	}
 }
 

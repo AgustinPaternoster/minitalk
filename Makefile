@@ -11,7 +11,7 @@ HEADER = inc/minitalk.h
 #---------bonus----------#
 
 NAMEC_B = client_bonus
-NAMES_B = server_bous
+NAMES_B = server_bonus
 CFILE_B = client_bonus.c
 SFILE_B = server_bonus.c
 HEADER_B = inc/minitalk_bonus.h
@@ -26,6 +26,18 @@ $(NAMES) : $(SFILE) $(HEADER) Makefile
 $(NAMEC) : $(CFILE) $(HEADER) Makefile
 	$(CC) $(FLAGS) $(CFILE) $(HEADER) $(PRINTF) $(LIBFT)  -o $(NAMEC)
 
+bonus : minitalk_bonus
+
+minitalk_bonus : library $(NAMES_B) $(NAMEC_B)
+
+$(NAMES_B) : $(SFILE_B) $(HEADER_B) Makefile
+	$(CC) $(FLAGS) $(SFILE_B) $(HEADER_B) $(PRINTF) $(LIBFT) -o $(NAMES_B)
+
+$(NAMEC_B) : $(CFILE_B) $(HEADER_B) Makefile
+	$(CC) $(FLAGS) $(CFILE_B) $(HEADER_B) $(PRINTF) $(LIBFT)  -o $(NAMEC_B)
+
+
+
 library:
 	@make -C libft
 	@make -C ft_printf
@@ -37,7 +49,7 @@ clean:
 fclean:
 	make fclean -C ft_printf
 	make fclean -C libft
-	rm $(NAMES)
-	rm $(NAMEC)
+	rm $(NAMES_B) $(NAMEC_B) $(NAMES) $(NAMEC)
+	
 
 re:	fclean all
