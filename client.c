@@ -14,9 +14,11 @@
 void	recive_signal(int signal)
 {
 	if (signal == SIGUSR1)
-		ft_printf("bit recibido\n");
+		//ft_printf("bit recibido\n");
+		return;
 	if (signal == SIGUSR2)
-		ft_printf("mensaje recibido\n");
+		//ft_printf("mensaje recibido\n");
+		return;
 }
 
 void	send_to_server(int pid, char c)
