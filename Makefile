@@ -8,12 +8,22 @@ PRINTF = ft_printf/libftprintf.a
 LIBFT = libft/libft.a
 HEADER = inc/minitalk.h
 
-all: library $(NAMES) $(NAMEC)
+#---------bonus----------#
 
-$(NAMES) : $(SFILE) $(HEADER) makefile 
+NAMEC_B = client_bonus
+NAMES_B = server_bous
+CFILE_B = client_bonus.c
+SFILE_B = server_bonus.c
+HEADER_B = inc/minitalk_bonus.h
+
+all: minitalk
+
+minitalk : library $(NAMES) $(NAMEC) 
+
+$(NAMES) : $(SFILE) $(HEADER) Makefile
 	$(CC) $(FLAGS) $(SFILE) $(HEADER) $(PRINTF) $(LIBFT) -o $(NAMES)
 
-$(NAMEC) : $(CFILE) $(HEADER) makefile
+$(NAMEC) : $(CFILE) $(HEADER) Makefile
 	$(CC) $(FLAGS) $(CFILE) $(HEADER) $(PRINTF) $(LIBFT)  -o $(NAMEC)
 
 library:
