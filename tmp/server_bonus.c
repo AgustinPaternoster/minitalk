@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/14 13:13:54 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./inc/minitalk.h"
+#include "./inc/minitalk_bonus.h"
 
 void	print_bits(int sig, siginfo_t *info, void *context)
 {
@@ -22,12 +22,18 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	bit++;
 	if (bit == 8)
 	{
-	
-		ft_printf("%c", chr);
+		if (chr == '\0')
+		{
+			ft_printf("\n");
+			kill(info->si_pid, SIGUSR2);
+			usleep(100);
+		}
+		else
+			ft_printf("%c", chr);
 		bit = 0;
 		chr = 0;
 	}
-	usleep(250);
+	usleep(100);
 	kill(info->si_pid, SIGUSR1);
 }
 
@@ -53,4 +59,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-

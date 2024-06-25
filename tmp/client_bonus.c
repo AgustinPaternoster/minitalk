@@ -9,16 +9,15 @@
 /*   Updated: 2024/06/14 13:13:36 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./inc/minitalk.h"
+#include "./inc/minitalk_bonus.h"
 
 void	recive_signal(int signal)
 {
 	if (signal == SIGUSR1)
-		return ;
+		ft_printf("bit recibido\n") ;
 	if (signal == SIGUSR2)
-		return ;
+		ft_printf("mensage recibido\n") ;
 }
-
 
 void	send_to_server(int pid, char c)
 {
@@ -32,7 +31,8 @@ void	send_to_server(int pid, char c)
 		else
 			kill(pid, SIGUSR2);
 		pause();
-		bit++;	
+		bit++;
+		
 	}
 }
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 			send_to_server(pid, argv[2][i]);
 			i++;
 		}
+		send_to_server(pid, argv[2][i]);
 	}
 	else
 	{
