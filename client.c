@@ -11,11 +11,14 @@
 /* ************************************************************************** */
 #include "./inc/minitalk.h"
 
+int checker;
+
+
 void	recive_signal(int signal)
 {
 	if (signal == SIGUSR1)
-		return ;
-	if (signal == SIGUSR2)
+		checker = 1;
+	else if (signal == SIGUSR2)
 		return ;
 }
 
@@ -27,12 +30,14 @@ void	send_to_server(int pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
+		checker = 0;
 		if (c & (0x01 << bit))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		pause();
 		bit++;	
+		while (checker != 1)
+			usleep(100);
 	}
 }
 
@@ -47,6 +52,11 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
+		if (pid < 0)
+		{
+			ft_putstr_fd("Error\n",2);
+			exit(EXIT_FAILURE);
+		}
 		while (argv[2][i] != '\0')
 		{
 			send_to_server(pid, argv[2][i]);
@@ -55,7 +65,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_printf("Error\n");
+		ft_putstr_fd("Error\n",2);
 		return (1);
 	}
 	return (0);
