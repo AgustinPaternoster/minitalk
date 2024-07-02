@@ -13,8 +13,18 @@
 
 int checker;
 
+static void error_p(int error)
+{
+	if (error == 1)
+		ft_putstr_fd(ERROR_1,2);
+	if (error == 2)
+		ft_putstr_fd(ERROR_2,2);
+	if (error == 3)
+		ft_putstr_fd(ERROR_3,2);
+	exit(EXIT_FAILURE);
+}
 
-void	recive_signal(int signal)
+static void	recive_signal(int signal)
 {
 	if (signal == SIGUSR1)
 		checker = 1;
@@ -23,18 +33,26 @@ void	recive_signal(int signal)
 }
 
 
-void	send_to_server(int pid, char c)
+static void	send_to_server(int pid, char c)
 {
 	int	bit;
-
+//() && (kill(pid, SIGUSR1) == -1)
+//((c & (0x1 << bit)) && (kill (server_pid, SIGUSR1) == -1))
 	bit = 0;
 	while (bit < 8)
 	{
 		checker = 0;
-		if (c & (0x01 << bit))
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
+		// if (c & (0x01 << bit))
+		// 	if((kill(pid, SIGUSR1)) != 0)
+		// 		ft_printf("err");
+		// else
+		// 	if((kill(pid, SIGUSR1)) != 0)
+		// 		ft_printf("err");
+		if ((c & (0x1 << bit)) && (kill (pid, SIGUSR1) == -1))
+			print_error("ERROR IN SENDING SIGNAL");
+		if (!(c & (0x1 << bit)) && (kill (pid, SIGUSR2) == -1))
+			print_error("ERROR IN SENDING SIGNAL");
+
 		bit++;	
 		while (checker != 1)
 			usleep(100);
@@ -52,11 +70,8 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		if (pid < 0)
-		{
-			ft_putstr_fd("Error\n",2);
-			exit(EXIT_FAILURE);
-		}
+		if (pid <= 0)
+			error_p(3);
 		while (argv[2][i] != '\0')
 		{
 			send_to_server(pid, argv[2][i]);
@@ -64,9 +79,6 @@ int	main(int argc, char **argv)
 		}
 	}
 	else
-	{
-		ft_putstr_fd("Error\n",2);
-		return (1);
-	}
+		error_p(2);
 	return (0);
 }

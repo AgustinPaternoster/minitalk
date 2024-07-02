@@ -18,4 +18,9 @@
 # include "../libft/libft.h"
 # include <signal.h>
 
+# define ERROR_1 "Signal error\n"
+# define ERROR_2 "Arguments errors\n"
+# define ERROR_3 "PID error\n"
+
+
 #endif
