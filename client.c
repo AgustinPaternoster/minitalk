@@ -13,6 +13,8 @@
 
 int checker;
 
+int send_signal(int signal);
+
 static void error_p(int error)
 {
 	if (error == 1)
@@ -32,7 +34,6 @@ static void	recive_signal(int signal)
 		return ;
 }
 
-
 static void	send_to_server(int pid, char c)
 {
 	int	bit;
@@ -42,17 +43,14 @@ static void	send_to_server(int pid, char c)
 	while (bit < 8)
 	{
 		checker = 0;
-		// if (c & (0x01 << bit))
-		// 	if((kill(pid, SIGUSR1)) != 0)
-		// 		ft_printf("err");
-		// else
-		// 	if((kill(pid, SIGUSR1)) != 0)
-		// 		ft_printf("err");
-		if ((c & (0x1 << bit)) && (kill (pid, SIGUSR1) == -1))
-			print_error("ERROR IN SENDING SIGNAL");
-		if (!(c & (0x1 << bit)) && (kill (pid, SIGUSR2) == -1))
-			print_error("ERROR IN SENDING SIGNAL");
-
+		if (c & (0x01 << bit))
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR1);
+		// if ((c & (0x1 << bit)) && (kill (pid, SIGUSR1) == -1))
+		// 	print_error("ERROR IN SENDING SIGNAL");
+		// if (!(c & (0x1 << bit)) && (kill (pid, SIGUSR2) == -1))
+		// 	print_error("ERROR IN SENDING SIGNAL");
 		bit++;	
 		while (checker != 1)
 			usleep(100);
@@ -77,6 +75,7 @@ int	main(int argc, char **argv)
 			send_to_server(pid, argv[2][i]);
 			i++;
 		}
+		ft_printf("msg send");
 	}
 	else
 		error_p(2);
