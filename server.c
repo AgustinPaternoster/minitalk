@@ -40,9 +40,7 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 void server_loop(void)
 {
 	while (1)
-	{
-		usleep(1000);
-	}	
+		usleep(50);
 }
 
 int	main(int argc, char **argv)
@@ -63,6 +61,7 @@ int	main(int argc, char **argv)
 	ft_printf("pid: %d\n", pid);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
+	server_loop();
 	return (0);
 }
 

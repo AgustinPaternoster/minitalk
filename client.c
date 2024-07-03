@@ -47,15 +47,28 @@ void	send_to_server(int pid, char c)
 void server_conection(int sig, siginfo_t *info, void *context))
 {
 	struct sigaction sa;
-		
+
+
+
 }
+
+ static void client_loop(int pid, char *str)
+ {
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		send_to_server(pid, str[i]);
+			i++;
+	}
+ }
+
+
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
-	int	pid;
-	int	i;
 
-	i = 0;
 	sa.sa_sigaction = &recive_signal;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
@@ -64,12 +77,7 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		check_arg(argv[1],argv[2]);
-		pid = ft_atoi(argv[1]);
-		while (argv[2][i] != '\0')
-		{
-			send_to_server(pid, argv[2][i]);
-			i++;
-		}
+		client_loop(ft_atoi(argv[1]), argv[2]);
 	}
 	else
 		manage_errors(2);
