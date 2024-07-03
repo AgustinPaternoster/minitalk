@@ -13,14 +13,15 @@
 
 int checker;
 
-void	recive_signal(int signal)
+void	recive_signal(int sig, siginfo_t *info, void *context)
 {
-	if (signal == SIGUSR1)
+	(void)info;
+	(void)context;
+	if (sig == SIGUSR1)
 		checker = 1;
-	else if (signal == SIGUSR2)
+	else if (sig == SIGUSR2)
 		return ;
 }
-
 
 void	send_to_server(int pid, char c)
 {
@@ -42,16 +43,24 @@ void	send_to_server(int pid, char c)
 		}
 	}
 }
-//test
+
+void server_conection(int sig, siginfo_t *info, void *context))
+{
+	struct sigaction sa;
+		
+}
 int	main(int argc, char **argv)
 {
+	struct sigaction	sa;
 	int	pid;
 	int	i;
 
 	i = 0;
-	signal(SIGUSR1, recive_signal);
-	signal(SIGUSR2, recive_signal);
-	
+	sa.sa_sigaction = &recive_signal;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	if (argc == 3)
 	{
 		check_arg(argv[1],argv[2]);

@@ -26,14 +26,17 @@
 
 typedef struct s_server
 {
-    int pid;
+    int pid_client;
     unsigned char chr;
-    int bit;   
+    int bit; 
+    int transmiting;  
 } t_server;
 
 void manage_errors(int error);
 void send_signal(int pid, int signal);
 void check_arg(char *arg_1 , char *arg_2);
+//server
+void check_conextion_c(int pid, int signal, t_server *server);
 
 
 #endif

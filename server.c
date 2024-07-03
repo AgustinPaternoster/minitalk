@@ -13,10 +13,11 @@
 
 t_server server;
 
-void server_data(void)
+void server_data(int c_pid)
 {
     server.bit = 0;
     server.chr = 0;
+	server.pid_client = c_pid;
 }
 
 void	print_bits(int sig, siginfo_t *info, void *context)
@@ -36,11 +37,21 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	kill(info->si_pid, SIGUSR1);
 }
 
+void server_loop(void)
+{
+	while (1)
+	{
+		usleep(1000);
+	}	
+}
+
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
+	int pid;
 
 	(void)argv;
+	pid = getpid();
 	sa.sa_sigaction = &print_bits;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
@@ -49,14 +60,9 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
-	ft_printf("pid: %d\n", getpid());
+	ft_printf("pid: %d\n", pid);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	server_data();
-	while (argc == 1)
-	{
-		pause ();
-	}
 	return (0);
 }
 
