@@ -12,9 +12,3 @@
 //         t_server->chr = 0;
 //     }
 // }
-
-void server_data(t_server *server)
-{
-    server->bit = 0;
-    server->chr = 0;
-}

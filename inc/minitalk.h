@@ -34,8 +34,6 @@ typedef struct s_server
 void manage_errors(int error);
 void send_signal(int pid, int signal);
 void check_arg(char *arg_1 , char *arg_2);
-void send_signal_c(int pid, int signal);
-void server_data(t_server *server)
 
 
 #endif
