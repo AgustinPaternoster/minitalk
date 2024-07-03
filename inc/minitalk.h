@@ -21,6 +21,21 @@
 # define ERROR_1 "Signal error\n"
 # define ERROR_2 "Arguments errors\n"
 # define ERROR_3 "PID error\n"
+# define ERROR_4 "Conection error\n"
+# define ERROR_5 "Empty string\n"
+
+typedef struct s_server
+{
+    int pid;
+    unsigned char chr;
+    int bit;   
+} t_server;
+
+void manage_errors(int error);
+void send_signal(int pid, int signal);
+void check_arg(char *arg_1 , char *arg_2);
+void send_signal_c(int pid, int signal);
+void server_data(t_server *server)
 
 
 #endif

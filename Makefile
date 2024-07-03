@@ -2,8 +2,10 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 NAMEC = client
 NAMES = server
-CFILE = client.c
-SFILE = server.c
+CFILE = client.c\
+		client_utils.c
+SFILE = server.c\
+		server_utils.c
 PRINTF = ft_printf/libftprintf.a
 LIBFT = libft/libft.a
 HEADER = inc/minitalk.h

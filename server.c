@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "./inc/minitalk.h"
 
+t_server *server;
+
 void	print_bits(int sig, siginfo_t *info, void *context)
 {
 	static int				bit;
@@ -28,7 +30,7 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 		chr = 0;
 	}
 	usleep(100);
-	kill(info->si_pid, SIGUSR1);
+	send_signal_c(info->si_pid, SIGUSR1, &bit, &chr);
 }
 
 int	main(int argc, char **argv)
