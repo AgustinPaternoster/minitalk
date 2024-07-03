@@ -17,10 +17,22 @@ void	recive_signal(int sig, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
+	static int connected;
 	if (sig == SIGUSR1)
-		checker = 1;
+	{	checker = 1;
+		connected = 1;
+	}
 	else if (sig == SIGUSR2)
-		return ;
+		if (connected)
+		{
+			ft_printf("Message delivered.Conection finished\n");
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			manage_errors(ERROR_6);
+			exit(EXIT_FAILURE);
+		}
 }
 
 void	send_to_server(int pid, char c)
@@ -44,13 +56,19 @@ void	send_to_server(int pid, char c)
 	}
 }
 
-void server_conection(int sig, siginfo_t *info, void *context))
-{
-	struct sigaction sa;
+// void server_conection(int sig, siginfo_t *info, void *context))
+// {
+// 	struct sigaction	sa;
+
+// 	sa.sa_sigaction = &recive_signal;
+// 	sa.sa_flags = SA_SIGINFO;
+// 	sigemptyset(&sa.sa_mask);
+// 	sigaction(SIGUSR1, &sa, NULL);
+// 	sigaction(SIGUSR2, &sa, NULL);
 
 
 
-}
+// }
 
  static void client_loop(int pid, char *str)
  {
@@ -62,6 +80,7 @@ void server_conection(int sig, siginfo_t *info, void *context))
 		send_to_server(pid, str[i]);
 			i++;
 	}
+	send_to_server(pid, '\0');
  }
 
 

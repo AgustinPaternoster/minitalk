@@ -23,6 +23,7 @@
 # define ERROR_3 "PID error\n"
 # define ERROR_4 "Conection error\n"
 # define ERROR_5 "Empty string\n"
+# define ERROR_6 "Server busy.Try later\n"
 
 typedef struct s_server
 {
@@ -32,7 +33,7 @@ typedef struct s_server
     int transmiting;  
 } t_server;
 
-void manage_errors(int error);
+void manage_errors(char *error);
 void send_signal(int pid, int signal);
 void check_arg(char *arg_1 , char *arg_2);
 //server

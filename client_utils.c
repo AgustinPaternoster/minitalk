@@ -1,19 +1,10 @@
 #include "./inc/minitalk.h"
 
-void manage_errors(int error)
+void manage_errors(char *error)
 {
-    if (error == 1)
-        ft_putstr_fd(ERROR_1,2);
-    if (error == 2)
-        ft_putstr_fd(ERROR_2,2);
-    if (error == 3)
-        ft_putstr_fd(ERROR_3,2);
-    if (error == 4)
-        ft_putstr_fd(ERROR_4,2);
-    if (error == 5)
-        ft_putstr_fd(ERROR_5,2);
+  
+    ft_putstr_fd(error,2);
     exit(EXIT_FAILURE);
-
 }
 
 void send_signal(int pid, int signal)
@@ -22,7 +13,7 @@ void send_signal(int pid, int signal)
 
 	sig = kill(pid, signal);
 	if (sig != 0)
-		manage_errors(4);
+		manage_errors(ERROR_4);
 }
 
 void check_arg(char *arg_1 , char *arg_2)
@@ -30,14 +21,14 @@ void check_arg(char *arg_1 , char *arg_2)
     int i;
 
     if (arg_2[0] == '\0')
-        manage_errors(5);
+        manage_errors(ERROR_5);
     if (ft_atoi(arg_1) <= 0)
-        manage_errors(3);
+        manage_errors(ERROR_3);
     i = 0;
     while(arg_1[i])
     {
         if(!ft_isdigit(arg_1[i]))
-            manage_errors(3);
+            manage_errors(ERROR_3);
         i++;
     }
 }

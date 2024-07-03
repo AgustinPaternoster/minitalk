@@ -28,7 +28,9 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	server.bit++;
 	if (server.bit == 8)
 	{
-	
+		if (c = 0\)
+			reset server;
+			send SIGUSR2 cliente;
 		ft_printf("%c", server.chr);
 		server.bit = 0;
 		server.chr = 0;
@@ -37,9 +39,21 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	kill(info->si_pid, SIGUSR1);
 }
 
+void	client_conections(int sig, siginfo_t *info, void *context)
+{
+	
+	(void)context;
+	//crear condiciones para filtrar señales
+	// y rechazar señales de otro pid;
+
+	print_bits();
+}
+
 void server_loop(void)
 {
 	while (1)
+		if server.cliente_pdi != 0;
+			check conections (server.cliente_pdi)
 		usleep(50);
 }
 
@@ -50,7 +64,7 @@ int	main(int argc, char **argv)
 
 	(void)argv;
 	pid = getpid();
-	sa.sa_sigaction = &print_bits;
+	sa.sa_sigaction = &client_conections;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
 	if (argc != 1)
