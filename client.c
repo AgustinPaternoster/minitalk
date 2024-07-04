@@ -15,9 +15,10 @@ int checker;
 
 void	recive_signal(int sig, siginfo_t *info, void *context)
 {
+	static int connected;
+	
 	(void)info;
 	(void)context;
-	static int connected;
 	if (sig == SIGUSR1)
 	{	checker = 1;
 		connected = 1;
@@ -30,7 +31,7 @@ void	recive_signal(int sig, siginfo_t *info, void *context)
 		}
 		else
 		{
-			manage_errors(ERROR_6);
+			manage_errors_c(ERROR_6);
 			exit(EXIT_FAILURE);
 		}
 }
@@ -44,14 +45,14 @@ void	send_to_server(int pid, char c)
 	{
 		checker = 0;
 		if (c & (0x01 << bit))
-			send_signal(pid,SIGUSR1);
+			send_signal_s(pid,SIGUSR1);
 		else
-			send_signal(pid, SIGUSR2);
+			send_signal_s(pid, SIGUSR2);
 		bit++;	
 		while (checker != 1)
 		{	
 			usleep(100);
-			send_signal(pid,0);
+			send_signal_s(pid,0);
 		}
 	}
 }
@@ -99,6 +100,6 @@ int	main(int argc, char **argv)
 		client_loop(ft_atoi(argv[1]), argv[2]);
 	}
 	else
-		manage_errors(2);
+		manage_errors_c(ERROR_2);
 	return (0);
 }

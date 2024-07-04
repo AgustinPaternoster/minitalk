@@ -1,15 +1,16 @@
 #include "./inc/minitalk.h"
 
-void check_conextion_c(int pid, int signal, t_server *server)
+void send_signal_c(int pid, int signal)
 {
     int sig;
 
 	sig = kill(pid, signal);
 	if (sig != 0)
-	{
-        //ft_putstr_fd(ERROR_4,2);
-        server->bit = 0;
-        server->chr = 0;
-        ft_printf("\nERROR\n");
-    }
+        manage_errors_s(ERROR_4);
+}
+
+void manage_errors_s(char *error)
+{
+    ft_putstr_fd(error,2);
+    init_server();
 }

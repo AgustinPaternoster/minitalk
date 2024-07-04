@@ -13,11 +13,12 @@
 
 t_server server;
 
-void server_data(int c_pid)
+void init_server(void)
 {
     server.bit = 0;
     server.chr = 0;
-	server.pid_client = c_pid;
+	server.transmiting = 0;
+	server.pid_client = 0;
 }
 
 void	print_bits(int sig, siginfo_t *info, void *context)
@@ -28,9 +29,12 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	server.bit++;
 	if (server.bit == 8)
 	{
-		if (c = 0\)
-			reset server;
-			send SIGUSR2 cliente;
+		if (server.chr == '\0')
+		{
+			ft_printf("\nmesage client %d recibed\n", server.pid_client);
+			send_signal_c(server.pid_client, SIGUSR2);
+			init_server();
+		}
 		ft_printf("%c", server.chr);
 		server.bit = 0;
 		server.chr = 0;
@@ -43,18 +47,22 @@ void	client_conections(int sig, siginfo_t *info, void *context)
 {
 	
 	(void)context;
+	if (server.pid_client == 0)
+		server.pid_client = info->si_pid;
 	//crear condiciones para filtrar señales
 	// y rechazar señales de otro pid;
 
-	print_bits();
+	print_bits(sig,info,context);
 }
 
 void server_loop(void)
 {
 	while (1)
-		if server.cliente_pdi != 0;
-			check conections (server.cliente_pdi)
+	{
+		if (server.pid_client != 0);
+			send_signal_c(server.pid_client,0);
 		usleep(50);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -69,12 +77,13 @@ int	main(int argc, char **argv)
 	sigemptyset(&sa.sa_mask);
 	if (argc != 1)
 	{
-		ft_printf("Error\n");
-		return (1);
+		manage_errors_s(ERROR_2);
+		exit(EXIT_FAILURE);
 	}
 	ft_printf("pid: %d\n", pid);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
+	init_server();
 	server_loop();
 	return (0);
 }

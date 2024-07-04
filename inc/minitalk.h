@@ -33,11 +33,14 @@ typedef struct s_server
     int transmiting;  
 } t_server;
 
-void manage_errors(char *error);
-void send_signal(int pid, int signal);
+void manage_errors_c(char *error);
+void send_signal_s(int pid, int signal);
 void check_arg(char *arg_1 , char *arg_2);
 //server
-void check_conextion_c(int pid, int signal, t_server *server);
+void send_signal_c(int pid, int signal);
+void init_server(void);
+void manage_errors_s(char *error);
+
 
 
 #endif
