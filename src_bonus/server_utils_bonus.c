@@ -17,7 +17,7 @@ void	send_signal_c(int pid, int signal)
 
 	sig = kill(pid, signal);
 	if (sig != 0)
-		reset_server(ERROR_4);
+		reset_server(ERROR_7);
 }
 
 void	reset_server(char *error)
