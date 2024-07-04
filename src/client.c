@@ -26,7 +26,7 @@ void	recive_signal(int sig, siginfo_t *info, void *context)
 	else if (sig == SIGUSR2)
 		if (connected)
 		{
-			ft_printf("Message delivered.Conection finished\n");
+			ft_printf("Message delivered. Connection finished.\n");
 			exit(EXIT_SUCCESS);
 		}
 		else

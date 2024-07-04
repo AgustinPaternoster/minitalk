@@ -31,7 +31,7 @@ void	print_bits(int sig, siginfo_t *info, void *context)
 	{
 		if (server.chr == '\0')
 		{
-			ft_printf("\nmesage client %d recibed\n", server.pid_client);
+			ft_printf("\nClient message %d received\n", server.pid_client);
 			send_signal_c(server.pid_client, SIGUSR2);
 			init_server();
 		}

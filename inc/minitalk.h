@@ -21,10 +21,10 @@
 # define ERROR_1 "Signal error\n"
 # define ERROR_2 "Arguments errors\n"
 # define ERROR_3 "PID error\n"
-# define ERROR_4 "Conection error\n"
+# define ERROR_4 "Connection error\n"
 # define ERROR_5 "Empty string\n"
-# define ERROR_6 "Server busy.Try later\n"
-# define ERROR_7 "\nConection error\n"
+# define ERROR_6 "Server busy. Try later\n"
+# define ERROR_7 "\nConnection error\n"
 
 typedef struct s_server
 {
