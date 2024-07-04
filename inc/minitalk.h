@@ -28,21 +28,19 @@
 
 typedef struct s_server
 {
-    int pid_client;
-    unsigned char chr;
-    int bit; 
-    int transmiting;  
-} t_server;
+	int				pid_client;
+	unsigned char	chr;
+	int				bit;
+	int				transmiting;
+}	t_server;
 
-void manage_errors_c(char *error);
-void send_signal_s(int pid, int signal);
-void check_arg(char *arg_1 , char *arg_2);
+void	manage_errors_c(char *error);
+void	send_signal_s(int pid, int signal);
+void	check_arg(char *arg_1, char *arg_2);
 //server
-void send_signal_c(int pid, int signal);
-void init_server(void);
-void manage_errors_s(char *error);
-void reset_server(char *error);
-
-
+void	send_signal_c(int pid, int signal);
+void	init_server(void);
+void	manage_errors_s(char *error);
+void	reset_server(char *error);
 
 #endif
