@@ -48,11 +48,14 @@ void	client_conections(int sig, siginfo_t *info, void *context)
 	
 	(void)context;
 	if (server.pid_client == 0)
+	{	
 		server.pid_client = info->si_pid;
-	//crear condiciones para filtrar señales
-	// y rechazar señales de otro pid;
-
-	print_bits(sig,info,context);
+		server.transmiting = 1;
+	}
+	else if (server.pid_client != info->si_pid && server.transmiting)
+		send_signal_c(info->si_pid,SIGUSR2);
+	if (server.pid_client == info->si_pid && server.transmiting)
+		print_bits(sig,info,context);
 }
 
 void server_loop(void)

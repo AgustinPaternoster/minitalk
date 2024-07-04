@@ -24,6 +24,7 @@
 # define ERROR_4 "Conection error\n"
 # define ERROR_5 "Empty string\n"
 # define ERROR_6 "Server busy.Try later\n"
+# define ERROR_7 "\nConection error\n"
 
 typedef struct s_server
 {
