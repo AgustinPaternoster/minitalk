@@ -1,4 +1,4 @@
-#include "./inc/minitalk.h"
+#include "../inc/minitalk.h"
 
 void manage_errors_c(char *error)
 {

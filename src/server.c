@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/14 13:13:54 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./inc/minitalk.h"
+#include "../inc/minitalk.h"
 
 t_server server;
 
@@ -72,20 +72,23 @@ int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
 	int pid;
+	int check;
 
 	(void)argv;
 	pid = getpid();
 	sa.sa_sigaction = &client_conections;
-	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
+
+	
 	if (argc != 1)
-	{
 		manage_errors_s(ERROR_2);
-		exit(EXIT_FAILURE);
-	}
+	if ((sigemptyset(&sa.sa_mask) != 0))
+		manage_errors_s(ERROR_1);
+	sa.sa_flags = SA_SIGINFO;
+	if((sigaction(SIGUSR1, &sa, NULL) != 0))
+		manage_errors_s(ERROR_1);	
+	if((sigaction(SIGUSR2, &sa, NULL) != 0))
+		manage_errors_s(ERROR_1);
 	ft_printf("pid: %d\n", pid);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
 	init_server();
 	server_loop();
 	return (0);

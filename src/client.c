@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/14 13:13:36 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./inc/minitalk.h"
+#include "../inc/minitalk.h"
 
 int checker;
 
@@ -57,20 +57,6 @@ void	send_to_server(int pid, char c)
 	}
 }
 
-// void server_conection(int sig, siginfo_t *info, void *context))
-// {
-// 	struct sigaction	sa;
-
-// 	sa.sa_sigaction = &recive_signal;
-// 	sa.sa_flags = SA_SIGINFO;
-// 	sigemptyset(&sa.sa_mask);
-// 	sigaction(SIGUSR1, &sa, NULL);
-// 	sigaction(SIGUSR2, &sa, NULL);
-
-
-
-// }
-
  static void client_loop(int pid, char *str)
  {
 	int i;
@@ -91,9 +77,12 @@ int	main(int argc, char **argv)
 
 	sa.sa_sigaction = &recive_signal;
 	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	if(sigemptyset(&sa.sa_mask) == -1)
+		manage_errors_c(ERROR_1);
+	if(sigaction(SIGUSR1, &sa, NULL) == -1)
+		manage_errors_c(ERROR_1);
+	if(sigaction(SIGUSR2, &sa, NULL) == -1)
+			manage_errors_c(ERROR_1);
 	if (argc == 3)
 	{
 		check_arg(argv[1],argv[2]);

@@ -41,6 +41,7 @@ void check_arg(char *arg_1 , char *arg_2);
 void send_signal_c(int pid, int signal);
 void init_server(void);
 void manage_errors_s(char *error);
+void reset_server(char *error);
 
 
 
